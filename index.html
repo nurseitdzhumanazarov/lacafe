@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LACE CAFE - Menu</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-pattern min-h-full smooth-scroll">
+    <div class="min-h-full">
+        <!-- Header - Yandex Eda Style -->
+        <header class="bg-white sticky top-0 z-50 border-b border-gray-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center justify-center flex-1">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl yandex-yellow flex items-center justify-center">
+                                <span class="text-xl">☕</span>
+                            </div>
+                            <h1 class="text-2xl font-bold text-gray-900">LACE CAFE</h1>
+                        </div>
+                    </div>
+                    <div class="absolute right-4">
+                        <button id="admin-btn" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">
+                            ⚙️ Admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Bar - Yandex Eda Style -->
+        <div class="bg-white border-b border-gray-100 sticky top-16 z-40">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="relative max-w-lg mx-auto">
+                    <input type="text" id="search-input" placeholder="Search dishes..." class="search-input w-full pl-12 pr-4 py-3 focus:outline-none text-base">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories - Yandex Eda Style -->
+        <div class="bg-white border-b border-gray-100 sticky top-28 z-40">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex space-x-3 py-4 overflow-x-auto category-scroll">
+                    <button class="category-btn flex items-center space-x-2 px-4 py-2" data-category="pizza">
+                        <span class="text-lg">🍕</span>
+                        <span class="text-sm font-medium">Pizza & Pasta</span>
+                    </button>
+                    <button class="category-btn flex items-center space-x-2 px-4 py-2" data-category="burger">
+                        <span class="text-lg">🍔</span>
+                        <span class="text-sm font-medium">Burgers</span>
+                    </button>
+                    <button class="category-btn flex items-center space-x-2 px-4 py-2" data-category="sushi">
+                        <span class="text-lg">🍣</span>
+                        <span class="text-sm font-medium">Sushi</span>
+                    </button>
+                    <button class="category-btn flex items-center space-x-2 px-4 py-2" data-category="dessert">
+                        <span class="text-lg">🍰</span>
+                        <span class="text-sm font-medium">Desserts</span>
+                    </button>
+                    <button class="category-btn flex items-center space-x-2 px-4 py-2" data-category="coffee">
+                        <span class="text-lg">☕</span>
+                        <span class="text-sm font-medium">Coffee & Drinks</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 container-mobile">
+            <div id="menu-sections" class="w-full">
+                <!-- Menu sections will be populated by JavaScript -->
+            </div>
+            
+            <!-- Customer Reviews Section -->
+            <section id="customer-reviews-section" class="mt-12 pt-8 border-t-2 border-gray-200" style="display: none;">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">⭐ Customer Reviews</h2>
+                    <p class="text-gray-600">See what our customers are saying about our food</p>
+                </div>
+                <div id="all-customer-reviews" class="space-y-6">
+                    <!-- All approved reviews will be displayed here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Scroll to Top Button -->
+        <button id="scroll-to-top" class="fixed bottom-6 right-6 yandex-yellow text-black p-3 rounded-full shadow-lg hover:bg-yellow-400 transition-all duration-300 z-40 hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+        <!-- Admin Login Modal -->
+        <div id="admin-login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+            <div class="flex items-center justify-center min-h-full p-4">
+                <div class="bg-white rounded-lg max-w-md w-full p-6">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold mb-2">🔐 Admin Access</h2>
+                        <p class="text-gray-600">Enter password to access admin panel</p>
+                    </div>
+                    <form id="admin-login-form">
+                        <div class="mb-4">
+                            <label for="admin-password" class="block text-sm font-medium mb-2">Password</label>
+                            <input type="password" id="admin-password" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter admin password" required>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button type="submit" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Login
+                            </button>
+                            <button type="button" id="cancel-login" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                    <div id="login-error" class="mt-3 text-red-600 text-sm text-center hidden">
+                        Incorrect password. Please try again.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Modal -->
+        <div id="rating-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+            <div class="flex items-center justify-center min-h-full p-4">
+                <div class="bg-white rounded-lg max-w-md w-full p-6">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold mb-2">⭐ Rate Product</h2>
+                        <p id="rating-product-name" class="text-gray-600 font-medium"></p>
+                    </div>
+                    <form id="rating-form">
+                        <div class="mb-4">
+                            <label for="rating-code" class="block text-sm font-medium mb-2">Rating Code</label>
+                            <input type="text" id="rating-code" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your rating code" required>
+                            <p class="text-xs text-gray-500 mt-1">You need a valid rating code to submit a review</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium mb-2">Rating</label>
+                            <div class="flex space-x-2" id="star-rating">
+                                <button type="button" class="star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors" data-rating="1">★</button>
+                                <button type="button" class="star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors" data-rating="2">★</button>
+                                <button type="button" class="star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors" data-rating="3">★</button>
+                                <button type="button" class="star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors" data-rating="4">★</button>
+                                <button type="button" class="star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors" data-rating="5">★</button>
+                            </div>
+                            <input type="hidden" id="selected-rating" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="rating-comment" class="block text-sm font-medium mb-2">Comment</label>
+                            <textarea id="rating-comment" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Share your experience..." required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="rating-photo" class="block text-sm font-medium mb-2">Photo (Optional)</label>
+                            <input type="file" id="rating-photo" accept="image/*" capture="environment" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-500 mt-1">📸 Tap to take a photo or choose from gallery</p>
+                            <div id="rating-photo-preview" class="mt-2 hidden">
+                                <img id="rating-preview-img" class="w-20 h-20 object-cover rounded-lg border" alt="Preview">
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button type="submit" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Submit Review
+                            </button>
+                            <button type="button" id="cancel-rating" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                    <div id="rating-error" class="mt-3 text-red-600 text-sm text-center hidden"></div>
+                    <div id="rating-success" class="mt-3 text-green-600 text-sm text-center hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel Modal -->
+        <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+            <div class="flex items-center justify-center min-h-full p-2 md:p-4">
+                <div class="bg-white rounded-lg max-w-4xl w-full max-h-[95vh] overflow-y-auto mx-2 md:mx-0">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold">⚙️ Admin Panel</h2>
+                            <button id="close-admin" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                        </div>
+                        
+                        <!-- Navigation Tabs -->
+                        <div class="mb-6">
+                            <div class="flex flex-wrap gap-1 bg-gray-100 p-1 rounded-lg">
+                                <button id="tab-add" class="flex-1 min-w-0 py-2 px-1 rounded-md text-xs font-medium transition-colors bg-white text-blue-600 shadow-sm">
+                                    <span class="hidden sm:inline">➕ Add Products</span>
+                                    <span class="sm:hidden">➕ Add</span>
+                                </button>
+                                <button id="tab-manage" class="flex-1 min-w-0 py-2 px-1 rounded-md text-xs font-medium transition-colors text-gray-600 hover:text-gray-800">
+                                    <span class="hidden sm:inline">🗑️ Manage Products</span>
+                                    <span class="sm:hidden">🗑️ Manage</span>
+                                </button>
+                                <button id="tab-codes" class="flex-1 min-w-0 py-2 px-1 rounded-md text-xs font-medium transition-colors text-gray-600 hover:text-gray-800">
+                                    <span class="hidden sm:inline">🎫 Rating Codes</span>
+                                    <span class="sm:hidden">🎫 Codes</span>
+                                </button>
+                                <button id="tab-reviews" class="flex-1 min-w-0 py-2 px-1 rounded-md text-xs font-medium transition-colors text-gray-600 hover:text-gray-800 relative">
+                                    <span class="hidden sm:inline">📝 Pending Reviews</span>
+                                    <span class="sm:hidden">📝 Pending</span>
+                                    <span id="pending-count-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
+                                </button>
+                                <button id="tab-history" class="flex-1 min-w-0 py-2 px-1 rounded-md text-xs font-medium transition-colors text-gray-600 hover:text-gray-800">
+                                    <span class="hidden sm:inline">📚 Review History</span>
+                                    <span class="sm:hidden">📚 History</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Add Products Tab Content -->
+                        <div id="add-content" class="tab-content">
+                        
+                        <!-- Add Category Form -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold mb-4">Add New Category</h3>
+                            <form id="add-category-form" class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="category-name" class="block text-sm font-medium mb-1">Category Name</label>
+                                        <input type="text" id="category-name" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., Salads" required>
+                                    </div>
+                                    <div>
+                                        <label for="category-emoji" class="block text-sm font-medium mb-1">Category Emoji</label>
+                                        <input type="text" id="category-emoji" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="🥗" maxlength="2" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    Add Category
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Add Product Form -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold mb-4">Add New Product</h3>
+                            <form id="add-product-form" class="space-y-4">
+                                <div>
+                                    <label for="product-name" class="block text-sm font-medium mb-1">Product Name</label>
+                                    <input type="text" id="product-name" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                                </div>
+                                <div>
+                                    <label for="product-description" class="block text-sm font-medium mb-1">Description</label>
+                                    <textarea id="product-description" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" rows="2" required></textarea>
+                                </div>
+                                <div>
+                                    <label for="product-image" class="block text-sm font-medium mb-1">Product Image</label>
+                                    <input type="file" id="product-image" accept="image/*" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                    <p class="text-xs text-gray-500 mt-1">Upload an image for your product (optional)</p>
+                                    <div id="image-preview" class="mt-2 hidden">
+                                        <img id="preview-img" class="w-20 h-20 object-cover rounded-lg border" alt="Preview">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="product-price" class="block text-sm font-medium mb-1">Price (som)</label>
+                                        <input type="number" id="product-price" step="0.01" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                                    </div>
+                                    <div>
+                                        <label for="product-category" class="block text-sm font-medium mb-1">Category</label>
+                                        <select id="product-category" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                                            <option value="pizza">Pizza & Pasta</option>
+                                            <option value="burger">Burgers</option>
+                                            <option value="sushi">Sushi</option>
+                                            <option value="dessert">Desserts</option>
+                                            <option value="coffee">Coffee & Drinks</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                    Add Product
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+
+                        <!-- Manage Products Tab Content -->
+                        <div id="manage-content" class="tab-content hidden">
+                            <h3 class="text-lg font-semibold mb-4">All Products</h3>
+                            <div class="max-h-96 overflow-y-auto border rounded-lg p-4 bg-gray-50">
+                                <div id="all-products-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <!-- All products will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rating Codes Tab Content -->
+                        <div id="codes-content" class="tab-content hidden">
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-4">Generate New Rating Code</h3>
+                                <form id="generate-code-form" class="space-y-4">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="code-description" class="block text-sm font-medium mb-1">Description</label>
+                                            <input type="text" id="code-description" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., Table 5 visit" required>
+                                        </div>
+                                        <div>
+                                            <label for="code-expiry" class="block text-sm font-medium mb-1">Expiry Date</label>
+                                            <input type="date" id="code-expiry" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                        Generate Code
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <h3 class="text-lg font-semibold mb-4">All Rating Codes</h3>
+                            <div class="max-h-96 overflow-y-auto border rounded-lg p-4 bg-gray-50">
+                                <div id="rating-codes-list" class="space-y-3">
+                                    <!-- Rating codes will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Reviews Tab Content -->
+                        <div id="reviews-content" class="tab-content hidden">
+                            <h3 class="text-lg font-semibold mb-4">Pending Reviews</h3>
+                            <div class="max-h-96 overflow-y-auto border rounded-lg p-4 bg-gray-50">
+                                <div id="pending-reviews-list" class="space-y-4">
+                                    <!-- Pending reviews will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review History Tab Content -->
+                        <div id="history-content" class="tab-content hidden">
+                            <h3 class="text-lg font-semibold mb-4">Review History</h3>
+                            <div class="max-h-96 overflow-y-auto border rounded-lg p-4 bg-gray-50">
+                                <div id="review-history-list" class="space-y-4">
+                                    <!-- Review history will be shown here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'992f0984a4204637',t:'MTc2MTE5OTQ2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
