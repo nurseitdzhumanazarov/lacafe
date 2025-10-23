@@ -1,0 +1,219 @@
+body {
+    box-sizing: border-box;
+}
+
+/* Yandex Eda style scrollbar */
+.category-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Yandex Eda color scheme */
+.yandex-yellow {
+    background-color: #FFDB4D;
+}
+
+.yandex-red {
+    background-color: #FF3B30;
+}
+
+.yandex-green {
+    background-color: #34C759;
+}
+
+/* Beautiful background pattern */
+.bg-pattern {
+    background-color: #f8fafc;
+    background-image: 
+        radial-gradient(circle at 25px 25px, rgba(255, 219, 77, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 75px 75px, rgba(255, 219, 77, 0.05) 2px, transparent 2px);
+    background-size: 100px 100px;
+}
+
+/* Clean card design like Yandex Eda */
+.food-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    border: 1px solid #f0f0f0;
+    width: 100%;
+    min-width: 0;
+}
+
+.food-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+/* Mobile layout fixes */
+@media (max-width: 768px) {
+    .food-card {
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .mobile-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .mobile-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+        box-sizing: border-box;
+    }
+    
+    /* Prevent horizontal scrolling completely */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+    
+    /* Fix container widths on mobile */
+    .max-w-6xl {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    /* Ensure all content stays within bounds */
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Category buttons like Yandex Eda */
+.category-btn {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.category-btn:hover {
+    border-color: #FFDB4D;
+    background-color: #fffbf0;
+}
+
+.category-btn.active {
+    background-color: #FFDB4D;
+    border-color: #FFDB4D;
+    color: #000;
+}
+
+/* Price styling like Yandex Eda */
+.price-text {
+    color: #000;
+    font-weight: 600;
+}
+
+/* Add to cart button like Yandex Eda */
+.add-to-cart {
+    background: #FFDB4D;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.add-to-cart:hover {
+    background: #FFD700;
+    transform: scale(1.02);
+}
+
+/* Search bar styling */
+.search-input {
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #FFDB4D;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 219, 77, 0.1);
+}
+
+/* Clean typography */
+.food-title {
+    color: #000;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.food-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Rating stars */
+.rating {
+    color: #FFD700;
+}
+
+/* Delivery time badge */
+.delivery-badge {
+    background: #f0f0f0;
+    color: #666;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+/* Mobile image optimization */
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+@media (max-width: 768px) {
+    .product-image {
+        height: 180px;
+    }
+    
+    .product-placeholder {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 12px 12px 0 0;
+    }
+    
+    /* Fix mobile scrolling issues */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+    
+    .container-mobile {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+        box-sizing: border-box;
+    }
+}
